@@ -12,7 +12,5 @@ How to take a piece:
   Any invalid moves will reset your turn. 
 
 Future updates:
-  player vs computer with a basic algorithm:
-    takes piece if available. 
-    random plays otherwise.
+  player vs computer with a basic algorithm(takes piece if available, random plays otherwise).
   Code clean-up with debug.
