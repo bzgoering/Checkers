@@ -8,10 +8,11 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<BorderPane prefHeight="594.0" prefWidth="520.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.SampleController">
-   <center>
-      <Pane fx:id="CheckerBoard" prefHeight="520.0" prefWidth="520.0" BorderPane.alignment="CENTER">
+<BorderPane minHeight="500.0" minWidth="500.0" prefHeight="607.0" prefWidth="546.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.SampleController">
+   <left>
+      <Pane fx:id="CheckerBoard" maxHeight="607.0" maxWidth="586.0" minHeight="607.0" minWidth="559.0" prefHeight="607.0" prefWidth="559.0" BorderPane.alignment="CENTER">
          <children>
             <Rectangle fx:id="A7" arcHeight="5.0" arcWidth="5.0" height="65.0" layoutY="65.0" stroke="BLACK" strokeType="INSIDE" width="65.0" />
             <Rectangle fx:id="A5" arcHeight="5.0" arcWidth="5.0" height="65.0" layoutY="195.0" stroke="BLACK" strokeType="INSIDE" width="65.0" />
@@ -69,15 +70,62 @@
             <Circle fx:id="Blue11" fill="#2200ff" layoutX="293.0" layoutY="358.0" radius="20.0" stroke="BLACK" strokeType="INSIDE" />
             <Circle fx:id="Blue12" fill="#2200ff" layoutX="423.0" layoutY="358.0" radius="20.0" stroke="BLACK" strokeType="INSIDE" />
             <Circle fx:id="Blue5" fill="#2200ff" layoutX="488.0" layoutY="423.0" radius="20.0" stroke="BLACK" strokeType="INSIDE" />
-            <Line endX="419.0" layoutX="101.0" layoutY="520.0" startX="-100.0" />
-            <Button fx:id="ResetButton" layoutX="36.0" layoutY="531.0" mnemonicParsing="false" onAction="#resetScene" prefHeight="49.0" prefWidth="84.0" text="Reset" />
-            <Button fx:id="startUp" layoutX="401.0" layoutY="531.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="84.0" text="Start" />
-            <Label fx:id="turnTxt" layoutX="163.0" layoutY="524.0" prefHeight="64.0" prefWidth="220.0">
+            <Line endX="419.0" endY="1.0" layoutX="101.0" layoutY="520.0" startX="-100.0" />
+            <Button fx:id="ResetButton" layoutX="36.0" layoutY="554.0" mnemonicParsing="false" onAction="#resetScene" prefHeight="49.0" prefWidth="84.0" text="Reset" />
+            <Button fx:id="startUp" layoutX="401.0" layoutY="556.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="84.0" text="Start" />
+            <Label fx:id="turnTxt" layoutX="163.0" layoutY="539.0" prefHeight="64.0" prefWidth="220.0" text="Insert Text">
                <font>
                   <Font size="43.0" />
                </font>
             </Label>
+            <Text layoutY="548.0" strokeType="OUTSIDE" strokeWidth="0.0" text="    A         B         C        D        E         F         G        H" wrappingWidth="520.0">
+               <font>
+                  <Font size="22.0" />
+               </font>
+            </Text>
+            <Text layoutX="456.0" layoutY="81.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="135.13671875" />
+            <Label layoutX="524.0" layoutY="17.0" prefHeight="32.0" prefWidth="19.0" text="8">
+               <font>
+                  <Font size="22.0" />
+               </font>
+            </Label>
+            <Line endX="0.5" endY="521.5" layoutX="519.0" layoutY="-1.0" startX="0.5" />
+            <Label layoutX="524.0" layoutY="82.0" prefHeight="32.0" prefWidth="19.0" text="7">
+               <font>
+                  <Font size="22.0" />
+               </font>
+            </Label>
+            <Label layoutX="524.0" layoutY="147.0" prefHeight="32.0" prefWidth="19.0" text="6">
+               <font>
+                  <Font size="22.0" />
+               </font>
+            </Label>
+            <Label layoutX="524.0" layoutY="212.0" prefHeight="32.0" prefWidth="19.0" text="5">
+               <font>
+                  <Font size="22.0" />
+               </font>
+            </Label>
+            <Label layoutX="524.0" layoutY="277.0" prefHeight="32.0" prefWidth="19.0" text="4">
+               <font>
+                  <Font size="22.0" />
+               </font>
+            </Label>
+            <Label layoutX="524.0" layoutY="342.0" prefHeight="32.0" prefWidth="19.0" text="3">
+               <font>
+                  <Font size="22.0" />
+               </font>
+            </Label>
+            <Label layoutX="524.0" layoutY="407.0" prefHeight="32.0" prefWidth="19.0" text="2">
+               <font>
+                  <Font size="22.0" />
+               </font>
+            </Label>
+            <Label layoutX="524.0" layoutY="472.0" prefHeight="32.0" prefWidth="19.0" text="1">
+               <font>
+                  <Font size="22.0" />
+               </font>
+            </Label>
          </children>
       </Pane>
-   </center>
+   </left>
 </BorderPane>
