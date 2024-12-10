@@ -14,3 +14,9 @@ How to take a piece:
 Future updates:
   player vs computer with a basic algorithm(takes piece if available, random plays otherwise).
   Code clean-up with debug.
+
+About code:
+  Main runs program, opening the GUI and starting the controller
+  Sample.fxml is the GUI presentation
+  SampleController initializes any GUI variables and initializes the game at start-up.
+  Draggable will have the user's limitations (Checkers Rules).
