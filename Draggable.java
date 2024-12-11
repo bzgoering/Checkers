@@ -1,3 +1,5 @@
+package application;
+
 import javafx.scene.control.Label;
 import javafx.scene.paint.Paint;
 
@@ -73,7 +75,7 @@ public class Draggable extends SampleController
 		if (!chip.getCircle().getFill().equals(turn))
 		{
 			reset(chip);
-			System.out.println("Not you turn");
+			debug.write("Not you turn\n");
 		}
 		else
 		{
@@ -123,7 +125,7 @@ public class Draggable extends SampleController
 		//invalid move
 		if (newTile.equals("Invalid"))
 		{
-			System.out.println("Invalid Move - must be diagonal, forwards");
+			debug.write("Invalid Move - must be diagonal, forwards\n");
 			reset(chip);
 		}
 		//sets chip if tile is open
@@ -131,8 +133,8 @@ public class Draggable extends SampleController
 		{
 			chip.getCircle().setLayoutX(newX);
 			chip.getCircle().setLayoutY(newY);
-			System.out.print(chip.getCircle().getId() + " moved from " + chip.getTile().charAt(0) + chip.getTile().substring(1));
-			System.out.println(" to " + newTile.charAt(0) + newTile.substring(1));
+			debug.write(chip.getCircle().getId() + " moved from " + chip.getTile().charAt(0) + chip.getTile().substring(1));
+			debug.write(" to " + newTile.charAt(0) + newTile.substring(1) + "\n");
 			
 			updateChipTile(chip, newTile.charAt(0), Integer.parseInt(newTile.substring(1)));
 			switchTurn();
@@ -179,13 +181,13 @@ public class Draggable extends SampleController
 			//allows move and next move to take
 			if (canTake(chip))
 			{
-				System.out.println(chip.getCircle().getId() + " can take");
+				debug.write(chip.getCircle().getId() + " can take\n");
 				return false;
 			}
 			//resets chip if can't take
 			else
 			{
-				System.out.println("Error - occupied by: " + occupyChip + ". You can't Take it");
+				debug.write("Error - occupied by: " + occupyChip + ". You can't Take it\n");
 				reset(chip);
 				return true;
 			}
@@ -225,15 +227,14 @@ public class Draggable extends SampleController
 		{
 			turn = BLUEPAINT;
 			turnTxt.setText("Blue's Turn");
-			System.out.println("turn: " + turn);
 		}
 		else
 		{
 			turn = REDPAINT;
 			turnTxt.setText("Red's Turn");
-			System.out.println("turn: " + turn);
-
 		}
+		
+		debug.write("turn: " + turn + "\n");
 	}
 
 	//reset chip to its previous spot
