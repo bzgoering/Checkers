@@ -1,32 +1,28 @@
 package application;
+	
+import javafx.application.Application;
+import javafx.stage.Stage;
+import javafx.scene.Scene;
+import javafx.scene.layout.BorderPane;
+import javafx.fxml.FXMLLoader;
 
-import javafx.scene.shape.Circle;
 
-public class Chip
-{
-	private Circle circle;
-	private String occupy;
-	private boolean king;
-
-	public Chip(Circle circ, String oc)
-	{
-		occupy = oc;
-		circle = circ;
-		king = false;
+public class Main extends Application {
+	@Override
+	public void start(Stage primaryStage) {
+		try {
+			BorderPane root = (BorderPane)FXMLLoader.load(getClass().getResource("Sample.fxml"));
+			Scene scene = new Scene(root,559,607);
+			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+			primaryStage.setScene(scene);
+			primaryStage.setTitle("Checkers");
+			primaryStage.show();
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
-	public Circle getCircle()
-	{
-		return circle;
-	}
-	
-	public String getTile()
-	{
-		return occupy;
-	}
-	
-	protected void setTile(String rec)
-	{
-		occupy = rec;
+	public static void main(String[] args) {
+		launch(args);
 	}
 }
