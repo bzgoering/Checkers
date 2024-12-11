@@ -72,7 +72,7 @@
             <Circle fx:id="Blue5" fill="#2200ff" layoutX="488.0" layoutY="423.0" radius="20.0" stroke="BLACK" strokeType="INSIDE" />
             <Line endX="419.0" endY="1.0" layoutX="101.0" layoutY="520.0" startX="-100.0" />
             <Button fx:id="ResetButton" layoutX="36.0" layoutY="554.0" mnemonicParsing="false" onAction="#resetScene" prefHeight="49.0" prefWidth="84.0" text="Reset" />
-            <Button fx:id="startUp" layoutX="401.0" layoutY="556.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="84.0" text="Start" />
+            <Button fx:id="DebugButton" layoutX="401.0" layoutY="556.0" mnemonicParsing="false" onAction="#debugButton" prefHeight="49.0" prefWidth="84.0" text="Open Log" />
             <Label fx:id="turnTxt" layoutX="163.0" layoutY="539.0" prefHeight="64.0" prefWidth="220.0" text="Insert Text">
                <font>
                   <Font size="43.0" />
