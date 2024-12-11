@@ -10,9 +10,6 @@ public class Draggable extends SampleController
 		private double mouseAnchorY;
 		private double initialX;
 		private double initialY;
-
-	//boolean
-		private boolean endGame = false;
 	
 	//paints
 		private Paint BLUEPAINT;
@@ -21,6 +18,15 @@ public class Draggable extends SampleController
 	
 	//label
 		private Label turnTxt;
+	
+	//game variables
+		private boolean endGame = false;
+		private boolean friendly;
+		private Chip enemy;
+		private Chip chipchip;
+		private boolean taking = false;
+		private int bluePoints = 0;
+		private int redPoints = 0;
 	
 	//constructor
 	protected Draggable(Label txt)
@@ -66,7 +72,14 @@ public class Draggable extends SampleController
 	//main check method
 	private void check(Chip chip)
 	{
-		checkTurn(chip);
+		if (taking)
+		{
+			take(chip);
+		}
+		else
+		{
+			checkTurn(chip);
+		}
 	}
 	
 	//checks the chip color moved
@@ -120,95 +133,207 @@ public class Draggable extends SampleController
 		double newX = chip.getCircle().getLayoutX();
 		double newY = chip.getCircle().getLayoutY();
 		
+		//gets next tile
 		String newTile = math(chip,newX,newY);
-		
-		//invalid move
+
+		//if player makes invalid move
 		if (newTile.equals("Invalid"))
 		{
 			debug.write("Invalid Move - must be diagonal, forwards\n");
 			reset(chip);
 		}
-		//sets chip if tile is open
-		else if (!isOccupy(chip, newTile))
+		//valid move
+		else
 		{
-			chip.getCircle().setLayoutX(newX);
-			chip.getCircle().setLayoutY(newY);
-			debug.write(chip.getCircle().getId() + " moved from " + chip.getTile().charAt(0) + chip.getTile().substring(1));
-			debug.write(" to " + newTile.charAt(0) + newTile.substring(1) + "\n");
-			
-			updateChipTile(chip, newTile.charAt(0), Integer.parseInt(newTile.substring(1)));
-			switchTurn();
+			//check if occupied
+			if (isOccupy(chip, newTile))
+			{
+				//check if we can take the chip occupied
+				if (canTake(chip))
+				{
+					debug.write("Valid Move - can take\n");
+				}
+				//can't take chip
+				else
+				{
+					reset(chip);
+				}
+			}
+			else
+			{
+				//regular move
+				confirmMove(chip, newX, newY, newTile);
+			}
 		}
 	}
-	
-	//updates the tile chip is on
-	private void updateChipTile(Chip chip, char newColumn, int newRow)
-	{
-		String newTileId = "" + newColumn + newRow;
-		chip.setTile(newTileId);
-	}
-	
+
+	//checks if occupied
 	public boolean isOccupy(Chip chip, String newTile) 
 	{	
 		boolean occupy = false;
-		String occupyChip = "";
 		
-		//check red
+		//Traverse chips
 		for (Chip chips : RedChips)
 		{
+			//check if location is the same
 			if (chips.getTile().equals(newTile))
 			{
-				occupyChip =  chip.getCircle().getId();
+				enemy =  chips;
 				occupy = true;
 				break;
 			}
 		}
-		
-		//check blue
 		for (Chip chips : BlueChips)
 		{
+			//checks if location is the same
 			if (chips.getTile().equals(newTile))
 			{
-				occupyChip =  chip.getCircle().getId();
+				enemy =  chips;
 				occupy = true;
 				break;
 			}
 		}
 		
-		//looks if we can take
-		if (occupy)
+		//gets enemy if there is one
+		if (enemy != null)
 		{
-			//allows move and next move to take
-			if (canTake(chip))
-			{
-				debug.write(chip.getCircle().getId() + " can take\n");
-				return false;
-			}
-			//resets chip if can't take
-			else
-			{
-				debug.write("Error - occupied by: " + occupyChip + ". You can't Take it\n");
-				reset(chip);
-				return true;
-			}
+			friendly = turn.equals(enemy.getCircle().getFill());
 		}
-		else
-		{
-			return occupy;
-		}
+
+		return occupy;
 	}
 	
 	private boolean canTake(Chip chip)
 	{
-		boolean canTake = false;
-		//keep initial spot (should be on top of enemy)
-		//looks if next spot is open (call math) and let them stay there, turn will be over
-		//if it isn't, go back of OG spot and retry
+		if (friendly)
+		{
+			debug.write("Invalid move - tile occupied by friendly");
+			return false;
+		}
 		
+		//gets next tile
+		String leftTile = getNextTile(chip, true);
+		String rightTile = getNextTile(chip, false);
 		
-		return canTake;
+		if (leftTile.equals("Invalid") && rightTile.equals("Invalid"))
+		{
+			debug.write("Invalid Move - can not take, no open forward diagonal tiles");
+			return false;
+		}
+		else
+		{
+			taking = true;
+			chipchip = chip;
+			confirmMove(chip, chip.getCircle().getLayoutX(),chip.getCircle().getLayoutY(),enemy.getTile());
+			return true;
+		}
 	}
-	//add take method that removes chip from list and board
+	
+	//get next tile
+	public String getNextTile(Chip chip, boolean left)
+	{
+		char currentColumn = enemy.getTile().charAt(0);
+		int currentRow = Integer.parseInt(enemy.getTile().substring(1));
+		
+		char nextColumn;
+		int nextRow;
+		
+		//gets red or blue next row
+		if (turn.equals(BLUEPAINT))
+		{
+			nextRow = currentRow +1;
+		}
+		else
+		{
+			nextRow = currentRow -1;
+		}
+		
+		if (left)
+		{
+			nextColumn = (char) (currentColumn - 1);
+		}
+		else
+		{
+			nextColumn = (char) (currentColumn + 1);
+		}
+		
+		if (nextColumn < 'A' || nextColumn > 'H' || nextRow < 1 || nextRow > 8)
+		{
+			return "Invalid";
+		}
+
+		String nextTile=  nextColumn + "" + nextRow;
+		
+		if (isOccupy(chip, nextTile))
+		{
+			return "Invalid";
+		}
+		
+		return nextTile;
+	}
+
+	//moving rules for taking a chip
+	public void take(Chip chip)
+	{
+		boolean done = false;
+		
+		if (!chip.equals(chipchip))
+		{
+			debug.write("Invalid Move - finish your move\n");
+			reset(chip);
+		}
+		else
+		{
+			checkMove(chip);
+			done = true;
+			switchTurn();
+			takePoint();
+		}
+		
+		//gets rid of chips
+		enemy.getCircle().setVisible(false);
+		enemy.getCircle().setPickOnBounds(false);
+		remove(enemy);
+		
+		if (done)
+		{
+			enemy = null;
+			taking = false;
+			chipchip = null;
+		}
+		
+	}
+	
+	//adds one point to side for taking chip
+	public void takePoint()
+	{
+		if (enemy.getCircle().getFill().equals(BLUEPAINT))
+		{
+			debug.write("Red Gains Point for taking\n");
+			redPoints ++;
+		}
+		else
+		{
+			debug.write("Blue Gains Point for taking\n");
+			bluePoints ++;
+		}
+		
+		
+	}
+	
+	//removes chip	
+	public void remove(Chip chip)
+	{
+		if (chip.getCircle().getFill().equals(BLUEPAINT))
+		{
+			BlueChips.remove(chip);
+		}
+		else
+		{
+			RedChips.remove(chip);
+		}
+	}
+
 	//add king method that allows chip to move backwards diagonal too
 	//add point system based of takes
 	//add win if a list of chip is empty\
@@ -219,6 +344,21 @@ public class Draggable extends SampleController
 	
 	
 	
+	//makes move
+ 	private void confirmMove(Chip chip, double newX, double newY, String newTile)
+	{
+		chip.getCircle().setLayoutX(newX);
+		chip.getCircle().setLayoutY(newY);
+		debug.write(chip.getCircle().getId() + " moved from " + chip.getTile().charAt(0) + chip.getTile().substring(1));
+		debug.write(" to " + newTile.charAt(0) + newTile.substring(1) + "\n");
+		
+		String newTileId = "" + newTile.charAt(0) + Integer.parseInt(newTile.substring(1));
+		chip.setTile(newTileId);
+		if (!taking)
+		{
+			switchTurn();
+		}
+	}
 	
 	//Switches turn
 	private void switchTurn()
