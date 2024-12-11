@@ -1,14 +1,22 @@
+package application;
+
+import java.awt.Desktop;
+import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import javafx.event.ActionEvent;
+
 
 public class Debug 
 {
-	FileWriter debugWriter;
+	BufferedWriter debugWriter;
+	File file = new File("debug.txt");
 	
-	public Debug()
+	protected Debug()
 	{
 		try {
-			debugWriter = new FileWriter("debug.txt");
+			debugWriter = new BufferedWriter(new FileWriter(file));
 		}
 		catch(IOException e)
 		{
@@ -18,15 +26,43 @@ public class Debug
 	
 	
 	//writes to file debug stuff
-	public void write(String str)
+	protected void write(String str)
 	{
-		try {
+		try 
+		{
 			debugWriter.write(str);
 			debugWriter.flush();
 		}
 		catch(IOException e)
 		{
 			System.out.println("error - writting to debugWritter");
+		}
+	}
+	
+	public void openFile()
+	{
+		//opens file
+		if (Desktop.isDesktopSupported())
+		{
+			Desktop desktop = Desktop.getDesktop();
+			if (file.exists())
+			{
+				try {
+					desktop.open(file);
+				}
+				catch(IOException e)
+				{
+					System.out.println("Error opening file");
+				}
+			}
+			else
+			{
+				System.out.println("Error - File doesn't exist");
+			}
+		}
+		else
+		{
+			System.out.println("Error - Desktop not supported");
 		}
 	}
 }
