@@ -18,7 +18,7 @@ public class Draggable extends SampleController
 	
 	//label
 		private Label turnTxt;
-	
+		
 	//game variables
 		private boolean endGame = false;
 		private boolean friendly;
@@ -373,7 +373,7 @@ public class Draggable extends SampleController
 			turn = REDPAINT;
 			turnTxt.setText("Red's Turn");
 		}
-		
+		debug.write("Blue: " + bluePoints + "\n" + "Red: " + redPoints + "\n");
 		debug.write("turn: " + turn + "\n");
 	}
 
