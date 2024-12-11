@@ -1,10 +1,11 @@
-Standard recreation of player vs player checkers.
+Recreation of player vs player checkers.
 
 Rules are mostly the same:
   The bottom (Blue) goes first.
   only forward diagonal moves are allowed.
   valid moves are final (no undo).
   multi taking of pieces is permitted.
+  The winner goes to the last piece standing or the most points.
   
 How to take a piece: 
   move a piece to the desired piece to jump. 
