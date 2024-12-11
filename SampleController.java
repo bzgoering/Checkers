@@ -1,3 +1,6 @@
+package application;
+
+
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -95,3 +98,4 @@ public class SampleController implements Initializable
  		debug.openFile();
  	}
 }
+
