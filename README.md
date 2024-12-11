@@ -9,7 +9,7 @@ Rules are mostly the same:
 How to take a piece: 
   move a piece to the desired piece to jump. 
   Then, move the piece to the desired tile. 
-  Any invalid moves will reset your turn. 
+  Any invalid moves will reset to the last valid spot. 
 
 Future updates:
   player vs computer with a basic algorithm(takes piece if available, random plays otherwise).
