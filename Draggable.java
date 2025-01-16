@@ -106,9 +106,19 @@ public class Draggable extends SampleController
 		//makes sure user can only go diagonal fowards
 		double newX = chip.getCircle().getLayoutX();
 		double newY = chip.getCircle().getLayoutY();
-			
-		//gets next tile
-		String newTile = math(chip,newX,newY);
+		
+		String newTile;
+		if (chip.isKing())
+		{
+			//new tile if king, allows for backwards move sets
+			newTile = kingMath(chip,newX,newY);
+		}
+		else
+		{
+			//gets next tile
+			newTile = math(chip,newX,newY);
+		}
+		
 	
 		//if player makes invalid move
 		if (newTile.equals("Invalid"))
@@ -338,21 +348,52 @@ public class Draggable extends SampleController
 		{
 			if (chip.getTile().substring(1).equals("8"))
 			{
-				System.out.println("king!!");
+				debug.write("king!!");
 				chip.setKing(true);
 			}
 		}
 	}
-	//add king method that allows chip to move backwards diagonal too
-	//add point system based of takes
-	//add win if a list of chip is empty\
 	
-	//figure out how to change label, having issues
+	//////////////////////////////////////////////////////////////
+	//king rules
 	
+	//moving math for the king allowing it to go backwards
+	public String kingMath(Chip chip, double x, double y)
+	{
+		//math
+		char currentColumn = chip.getTile().charAt(0);
+		int currentRow = Integer.parseInt(chip.getTile().substring(1));
+		char newColumn = (char) ('A' + (int) (x/65));
+		int newRow = 8 - (int) (y/65);
+		
+		//for backwards and forwards
+		boolean validMove = Math.abs(newColumn - currentColumn) == 1 && (newRow - currentRow == 1) || Math.abs(newColumn - currentColumn) == 1 && (newRow - currentRow == -1);
+
+		if (validMove)
+		{
+			return newColumn + "" + newRow;
+		}
+		else
+		{
+			return "Invalid";
+		}
+	}
 	
-	
-	
-	
+	//winner declaration
+	public void isWinner()
+	{
+		if (RedChips.isEmpty())
+		{
+			debug.write("Blue Wins!");
+			turnTxt.setText("Blue Wins!");
+		}
+		else if (BlueChips.isEmpty())
+		{
+			debug.write("Red Wins!");
+			turnTxt.setText("Red Wins!");
+		}
+	}
+
 	//makes move
  	private void confirmMove(Chip chip, double newX, double newY, String newTile)
 	{
@@ -387,6 +428,8 @@ public class Draggable extends SampleController
 		}
 		debug.write("Blue: " + bluePoints + "\n" + "Red: " + redPoints + "\n");
 		debug.write("turn: " + turn + "\n");
+		
+		isWinner();
 	}
 
 	//reset chip to its previous spot
