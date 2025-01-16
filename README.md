@@ -1,6 +1,7 @@
 Recreation of player vs player checkers.
 
 (Please Note that the game becomes bugged after the reset button is hit)
+
 Rules are mostly the same:
   - The bottom (Blue) goes first.
   - only forward diagonal moves are allowed.
