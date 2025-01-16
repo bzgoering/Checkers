@@ -72,6 +72,11 @@ public class SampleController implements Initializable
  		{ 
  			e.printStackTrace(); 
  		}
+ 		
+ 		//reset chip list
+ 		RedChips.clear(); BlueChips.clear();
+ 		addRed(); addBlue();
+ 		startGame();
  	}
  	
  	//on startup
