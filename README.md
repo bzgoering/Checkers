@@ -4,7 +4,7 @@ Rules are mostly the same:
   - The bottom (Blue) goes first.
   - only forward diagonal moves are allowed.
   - valid moves are final (no undo).
-  - multi taking of pieces is permitted.
+  - multi taking of pieces is not permitted, one piece at a time.
   - The winner goes to the last piece standing or the most points. (Can only be seen through log).
   
 How to take a piece: 
