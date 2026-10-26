@@ -1,26 +1,36 @@
-Recreation of player vs player checkers.
+# Checkers
 
-(Please Note that the game becomes bugged after the reset button is hit)
+A player-vs-player checkers game built with JavaFX.
 
-Rules are mostly the same:
-  - The bottom (Blue) goes first.
-  - only forward diagonal moves are allowed.
-  - valid moves are final (no undo).
-  - multi taking of pieces is not permitted, one piece at a time.
-  - The winner goes to the last piece standing or the most points. (Can only be seen through log).
-  
-How to take a piece: 
-  - move a piece to the desired piece to jump. 
-  - Then, move the piece to the desired tile. 
-  - Any invalid moves will reset to the last valid spot. 
+## Tech
+- Java 21
+- JavaFX 23 (UI built with SceneBuilder)
 
-Future updates:
-  - finish game mechanics.
-  - player vs computer with a basic algorithm(takes piece if available, random plays otherwise).
-  - Code clean-up.
+## How to run
+You need **JDK 21+** and the **[JavaFX SDK 23](https://gluonhq.com/products/javafx/)**.
 
-About code:
-  - Main runs program, opening the GUI and starting the controller
-  - Sample.fxml is the GUI presentation
-  - SampleController initializes any GUI variables and initializes the game at start-up.
-  - draggable will have the user's limitations (Checkers Rules).
+**Eclipse (how it was built):** create a JavaFX project, put the files in the `application` package, and run `Main.java`.
+
+**Command line:**
+```bash
+# PATH_TO_FX = the lib folder of your JavaFX SDK
+javac --module-path $PATH_TO_FX --add-modules javafx.controls,javafx.fxml -d out *.java
+cp *.fxml out/application/ && touch out/application/application.css
+java --module-path $PATH_TO_FX --add-modules javafx.controls,javafx.fxml -cp out application.Main
+```
+The app loads an `application.css` stylesheet, which Eclipse's JavaFX template normally creates. If you don't have one, an empty file works.
+
+## How to play
+Drag a piece to move it. **Blue** (bottom) goes first.
+- Only forward diagonal moves are allowed, and valid moves are final (no undo).
+- **To take a piece:** drag your piece onto the enemy piece, then drag it to the tile you want to land on.
+- You can only take one piece per move (no multi-jumps).
+- An invalid move snaps the piece back to its last valid spot.
+- You win by being the last one with pieces left, or by having the most points.
+
+**Open Log** shows the game log (including points). **Reset** restarts the board, but the game is buggy after a reset.
+
+## Planned
+- Finish the game mechanics
+- Player vs computer (takes a piece if it can, otherwise plays randomly)
+- Code clean-up
