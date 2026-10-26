@@ -1,3 +1,5 @@
+package application;
+	
 import javafx.application.Application;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
@@ -10,9 +12,13 @@ public class Main extends Application {
 	public void start(Stage primaryStage) {
 		try {
 			BorderPane root = (BorderPane)FXMLLoader.load(getClass().getResource("Sample.fxml"));
-			Scene scene = new Scene(root,520,594);
-			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+			Scene scene = new Scene(root,559,607);
+			if (getClass().getResource("application.css") != null)
+			{
+				scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+			}
 			primaryStage.setScene(scene);
+			primaryStage.setTitle("Checkers");
 			primaryStage.show();
 		} catch(Exception e) {
 			e.printStackTrace();

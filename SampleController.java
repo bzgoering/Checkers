@@ -38,7 +38,7 @@ public class SampleController implements Initializable
 		protected static List<Chip>BlueChips = new ArrayList<>();
 
 	//Debug stuff
-		Debug debug = new Debug();
+		protected static Debug debug = new Debug();
 		
 	//adds blue chips to list
 	private void addBlue()
@@ -61,22 +61,18 @@ public class SampleController implements Initializable
   	// Reset scene method 
  	public void resetScene(ActionEvent Event) 
  	{ 
- 		try 
- 		{ 
- 			FXMLLoader loader = new FXMLLoader(getClass().getResource("Sample.fxml")); 
- 			Parent root = loader.load(); 
- 			Stage stage = (Stage) CheckerBoard.getScene().getWindow(); 
- 			stage.setScene(new Scene(root)); 
- 		} 
- 		catch (Exception e) 
- 		{ 
- 			e.printStackTrace(); 
+ 		//loading the scene creates a new controller, which resets the chip lists and starts a new game
+ 		try
+ 		{
+ 			FXMLLoader loader = new FXMLLoader(getClass().getResource("Sample.fxml"));
+ 			Parent root = loader.load();
+ 			Stage stage = (Stage) CheckerBoard.getScene().getWindow();
+ 			stage.setScene(new Scene(root));
  		}
- 		
- 		//reset chip list
- 		RedChips.clear(); BlueChips.clear();
- 		addRed(); addBlue();
- 		startGame();
+ 		catch (Exception e)
+ 		{
+ 			e.printStackTrace();
+ 		}
  	}
  	
  	//on startup
@@ -84,6 +80,8 @@ public class SampleController implements Initializable
  	public void initialize(URL url, ResourceBundle RB) 
  	{
  		//sets variables at start up
+ 		RedChips.clear();
+ 		BlueChips.clear();
  		addRed();
  		addBlue();
  		
