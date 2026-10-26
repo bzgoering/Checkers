@@ -26,9 +26,10 @@ Drag a piece to move it. **Blue** (bottom) goes first.
 - **To take a piece:** drag your piece onto the enemy piece, then drag it to the tile you want to land on.
 - You can only take one piece per move (no multi-jumps).
 - An invalid move snaps the piece back to its last valid spot.
+- Reach the far row to become a **king** (shown with a gold outline).
 - You win by being the last one with pieces left, or by having the most points.
 
-**Open Log** shows the game log (including points). **Reset** restarts the board, but the game is buggy after a reset.
+**Open Log** shows the game log (including points). **Reset** restarts the board.
 
 ## Planned
 - Finish the game mechanics
